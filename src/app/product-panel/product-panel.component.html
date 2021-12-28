@@ -1,0 +1,199 @@
+<div class="navbar navbar-light bg-primary">
+    <div class="container-fluid">
+      <h1 style="color: aliceblue;">Angular Test</h1>
+        <div class="d-flex">
+            <button type="button" class="btn btn-success" (click)="openModal(template)">Create template modal</button>
+ 
+ 
+        </div>
+    </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="productForm" *ngIf="productForm">
+          <label for="productName1">Product Name</label>
+          <div class="controls mb-3" id="form-login">
+              <input 
+                type            ="text" 
+                class           ="form-control"
+                formControlName ="title"
+                placeholder     ="Input Email"
+              >
+          </div>
+
+          <div class="form-group">
+            <label for="Quantity1">Category</label>
+            <input 
+                type            ="text" 
+                class           ="form-control" 
+                id              ="exampleInputPassword1" 
+                placeholder     ="Category"
+                formControlName ="category"
+            >
+        </div>
+
+          <div class="form-group">
+            <label for="Quantity1">Image Url</label>
+            <input 
+                type            ="text" 
+                class           ="form-control" 
+                id              ="exampleInputPassword1" 
+                placeholder     ="Image Url"
+                formControlName ="image"
+            >
+          </div>
+
+          <div class="form-group">
+              <label for="Quantity1">Price</label>
+              <input 
+                  type            ="text" 
+                  class           ="form-control" 
+                  id              ="exampleInputPassword1" 
+                  placeholder     ="Price"
+                  formControlName ="price"
+              >
+            <small id="emailHelp" class="form-text text-muted">Example : 100000</small>
+          </div>
+
+          <div class="form-group">
+              <label for="exampleInputPassword1">Description</label>
+              <textarea 
+                  type            ="text" 
+                  class           ="form-control" 
+                  id              ="exampleInputPassword1" 
+                  placeholder     ="Product description" 
+                  formControlName ="description">
+              </textarea>
+          </div>
+
+          <button 
+              type="submit" 
+              class="btn btn-primary"
+              (click)="addProduct(productForm.value)">Submit</button>
+          <button 
+              type="button" 
+              class="ml-3 btn btn-secondary" 
+              data-dismiss="modal"
+              (click)="modalRef?.hide()">Cancel</button>
+      </form>
+  </div>
+</ng-template>     
+
+<div
+infiniteScroll
+[infiniteScrollDistance]="1"
+[infiniteScrollThrottle]="100"
+(scrolled)="onScroll()"
+>
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-3 justify-content no-gutters mt-4" *ngFor="let product of productsData; let i = index">
+          <div class="card-deck justify-content-center">
+            <div class="mb-2">
+              <div class="card" style="width: 17rem;">
+                <!-- <a href="#"> -->
+                <div class="card-body">
+                    <img src="{{product.image}}" class="img-fluid image-product" alt="">
+                  <h6 class="card-title text-center mt-2">{{product.title}}</h6>
+                  <p class="card-text text-justify max-lines" >
+                    {{product.description}}
+                  </p>
+                </div>
+                <button class="btn btn-danger mb-2" (click)="deleteProduct(product.id)">Delete</button>
+                <button class="btn btn-success" (click)="openModalUpdate(templateUpdate, product.id)">Update</button>
+      
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+</div>
+
+
+<ng-template #templateUpdate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="updateModalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="productForm" *ngIf="productForm">
+          <label for="productName1">Product Name</label>
+          <div class="controls mb-3" id="form-login">
+              <input 
+                type            ="text" 
+                class           ="form-control"
+                formControlName ="title"
+                placeholder     ="Input Email"
+              >
+          </div>
+
+          <div class="form-group">
+            <label for="Quantity1">Category</label>
+            <input 
+                type            ="text" 
+                class           ="form-control" 
+                id              ="exampleInputPassword1" 
+                placeholder     ="Category"
+                formControlName ="category"
+            >
+        </div>
+
+          <div class="form-group">
+            <label for="Quantity1">Image Url</label>
+            <input 
+                type            ="text" 
+                class           ="form-control" 
+                id              ="exampleInputPassword1" 
+                placeholder     ="Image Url"
+                formControlName ="image"
+            >
+          </div>
+
+          <div class="form-group">
+              <label for="Quantity1">Price</label>
+              <input 
+                  type            ="text" 
+                  class           ="form-control" 
+                  id              ="exampleInputPassword1" 
+                  placeholder     ="Price"
+                  formControlName ="price"
+              >
+            <small id="emailHelp" class="form-text text-muted">Example : 100000</small>
+          </div>
+
+          <div class="form-group">
+              <label for="exampleInputPassword1">Description</label>
+              <textarea 
+                  type            ="text" 
+                  class           ="form-control" 
+                  id              ="exampleInputPassword1" 
+                  placeholder     ="Product description" 
+                  formControlName ="description">
+              </textarea>
+          </div>
+
+          <button 
+              type="submit" 
+              class="btn btn-primary"
+              (click)="updateProducts(productForm.value, dataProductId)">Update</button>
+          <button 
+              type="button" 
+              class="ml-3 btn btn-secondary" 
+              data-dismiss="modal"
+              (click)="updateModalRef?.hide()">Cancel</button>
+      </form>
+  </div>
+</ng-template>     
+  
+  

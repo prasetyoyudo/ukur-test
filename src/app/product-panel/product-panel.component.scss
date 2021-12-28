@@ -1,0 +1,14 @@
+.image-product {
+    height: 200px;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.max-lines {
+    display: block;/* or inline-block */
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+    line-height: 1.8em;
+}
